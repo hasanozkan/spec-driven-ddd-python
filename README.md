@@ -1,6 +1,6 @@
 # Spec-driven DDD — a modular monolith in miniature
 
-[![ci](https://github.com/hasanozkan/spec-driven-ddd-sample/actions/workflows/ci.yml/badge.svg)](https://github.com/hasanozkan/spec-driven-ddd-sample/actions/workflows/ci.yml)
+[![ci](https://github.com/hasanozkan/spec-driven-ddd-python/actions/workflows/ci.yml/badge.svg)](https://github.com/hasanozkan/spec-driven-ddd-python/actions/workflows/ci.yml)
 ![python](https://img.shields.io/badge/python-3.14-blue) ![license](https://img.shields.io/badge/license-MIT-green)
 
 A small library-lending system that exists to show **how** software gets
