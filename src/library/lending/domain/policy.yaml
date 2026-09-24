@@ -1,7 +1,7 @@
-# THE single source of lending policy. The spec owns the numbers; the code
-# vendors a byte-identical copy (src/library/lending/domain/policy.yaml) and
-# `make mirror` fails the build the moment the two differ. A policy change is
-# therefore always a spec change first — reviewed where the rule is written.
+# THE single source of lending policy. The spec owns the numbers; every
+# implementation vendors a byte-identical copy and its build fails the moment
+# the two differ. A policy change is therefore always a spec change first —
+# reviewed where the rule is written.
 version: 1
 tiers:
   standard:

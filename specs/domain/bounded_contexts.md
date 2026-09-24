@@ -1,8 +1,8 @@
 # Bounded contexts
 
 Two contexts, one deployable. Each owns its data and its language; they never
-import each other (`make imports` enforces it) and talk only through the
-integration events in `src/library/contracts/events.py`.
+depend on each other (the build enforces it) and talk only through the
+integration events of the shared contracts.
 
 | Context | Owns | Publishes | Listens to |
 |---|---|---|---|

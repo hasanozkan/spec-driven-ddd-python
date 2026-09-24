@@ -7,8 +7,8 @@ A member takes a copy home. The library must never lend one copy twice, must
 keep a member within their tier's limits, and must tell them when it is due.
 
 ## Rules
-Each rule has an id. Every id is proven by at least one test tagged
-`@pytest.mark.rule("<id>")`, and `make trace` fails the build otherwise.
+Each rule has an id. Every id is proven by at least one test tagged with it
+(a pytest marker, an xUnit trait, …), and the build fails otherwise.
 
 - **LEND-R1** — Only a copy the library knows about and that is not on an active loan can be borrowed.
 - **LEND-R2** — A member's active loans never exceed their tier's `max_active_loans`.
