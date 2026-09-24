@@ -38,6 +38,12 @@ class CatalogService:
         self._bus.publish(CopyRegistered(copy_id=copy.copy_id, isbn=isbn))
         return copy
 
+    def copies(self, isbn: str) -> list[Copy]:
+        """CAT-R3."""
+        if self._repo.get_book(isbn) is None:
+            raise BookNotFound(isbn)
+        return self._repo.copies_of(isbn)
+
     def search(self, text: str) -> list[Availability]:
         needle = text.casefold()
         return [

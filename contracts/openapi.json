@@ -93,6 +93,24 @@
         "title": "CopyOut",
         "type": "object"
       },
+      "CopyStatusOut": {
+        "properties": {
+          "copy_id": {
+            "title": "Copy Id",
+            "type": "string"
+          },
+          "on_loan": {
+            "title": "On Loan",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "copy_id",
+          "on_loan"
+        ],
+        "title": "CopyStatusOut",
+        "type": "object"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -327,6 +345,50 @@
       }
     },
     "/catalog/books/{isbn}/copies": {
+      "get": {
+        "operationId": "list_copies_catalog_books__isbn__copies_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "isbn",
+            "required": true,
+            "schema": {
+              "title": "Isbn",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CopyStatusOut"
+                  },
+                  "title": "Response List Copies Catalog Books  Isbn  Copies Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Copies",
+        "tags": [
+          "catalog"
+        ]
+      },
       "post": {
         "operationId": "add_copy_catalog_books__isbn__copies_post",
         "parameters": [

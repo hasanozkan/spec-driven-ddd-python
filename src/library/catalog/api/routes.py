@@ -21,6 +21,11 @@ class CopyOut(BaseModel):
     isbn: str
 
 
+class CopyStatusOut(BaseModel):
+    copy_id: str
+    on_loan: bool
+
+
 class AvailabilityOut(BaseModel):
     isbn: str
     title: str
@@ -41,6 +46,10 @@ def build_router(service: CatalogService) -> APIRouter:
     def add_copy(isbn: str) -> CopyOut:
         c = service.add_copy(isbn)
         return CopyOut(copy_id=c.copy_id, isbn=c.isbn)
+
+    @router.get("/books/{isbn}/copies")
+    def list_copies(isbn: str) -> list[CopyStatusOut]:
+        return [CopyStatusOut(copy_id=c.copy_id, on_loan=c.on_loan) for c in service.copies(isbn)]
 
     @router.get("/search")
     def search(q: str) -> list[AvailabilityOut]:
