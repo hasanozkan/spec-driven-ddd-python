@@ -3,6 +3,11 @@ on:
   push:
     branches: [main]
   pull_request:
+  # Weekly, so rot (a dead URL, a moved API, a broken action) turns red on its
+  # own instead of waiting for the next change.
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
 
 permissions:
   contents: read
