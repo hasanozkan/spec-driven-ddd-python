@@ -12,7 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # linkedin.com answers bots with HTTP 999; it is excluded, not ignored silently.
       - uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --exclude-loopback --exclude 'localhost' '**/*.md'
+          args: --no-progress --exclude-loopback --exclude 'localhost' --exclude 'linkedin\.com' '**/*.md'
           fail: true
