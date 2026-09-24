@@ -2,7 +2,7 @@
 name = "library-sample"
 version = "0.1.0"
 description = "A spec-driven, domain-driven modular monolith in miniature."
-requires-python = ">=3.12"
+requires-python = ">=3.14"
 license = "MIT"
 dependencies = [
     "fastapi>=0.115",
@@ -36,7 +36,7 @@ markers = ["rule(id): the spec rule this test proves (checked by scripts/check_t
 
 [tool.ruff]
 line-length = 100
-target-version = "py312"
+target-version = "py314"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
