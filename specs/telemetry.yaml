@@ -1,0 +1,25 @@
+# The telemetry contract: what every implementation emits, by name, type and
+# attributes. Names follow OpenTelemetry (semantic conventions where they
+# exist); dashboards and alerts are written against this file, so a rename
+# is a contract change reviewed here, not a surprise in production.
+#
+# Prometheus exposition of these names: dots become underscores, counters
+# gain `_total`, a unit of seconds adds `_seconds`.
+version: 1
+metrics:
+  - name: http.server.request.duration
+    type: histogram
+    unit: s
+    attributes: [http.request.method, http.route, http.response.status_code]
+  - name: library.loans.opened
+    type: counter
+    attributes: []
+  - name: library.loans.closed
+    type: counter
+    attributes: [library.late]
+  - name: library.late_fees.cents
+    type: counter
+    attributes: []
+  - name: library.refusals
+    type: counter
+    attributes: [library.code]
