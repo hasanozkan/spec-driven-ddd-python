@@ -73,6 +73,18 @@ Each gate was verified by breaking it on purpose once — a cross-context
 import, a framework in the domain, a drifted policy, an untagged rule, an
 unsnapshotted route, a removed fee cap. All six turned the build red.
 
+## Operability — telemetry is part of the contract
+
+[`specs/telemetry.yaml`](specs/telemetry.yaml) names what the service emits
+(OpenTelemetry; `http.server.request.duration` from the semantic conventions,
+`library.*` for the domain), and [feature 004](specs/features/004-operability)
+makes it rules: requests timed by route template (OPS-R1), loans and late fees
+counted **from the integration events** so the contexts never know they are
+measured (OPS-R2), refusals by problem code (OPS-R3), all at `GET /metrics`
+(OPS-R4). The test reads the same YAML the
+[.NET implementation](https://github.com/hasanozkan/spec-driven-ddd-dotnet)
+is held to — rename a metric in one and its build turns red.
+
 ## Tour
 
 | Path | What to look at |
