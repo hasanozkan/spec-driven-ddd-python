@@ -30,6 +30,19 @@ def scrape(client: TestClient) -> dict[str, set[str]]:
     return out
 
 
+def buckets(client: TestClient, family: str) -> list[float]:
+    for fam in text_string_to_metric_families(client.get("/metrics/").text):
+        if fam.name == family:
+            return sorted(
+                {
+                    float(s.labels["le"])
+                    for s in fam.samples
+                    if "le" in s.labels and s.labels["le"] != "+Inf"
+                }
+            )
+    return []
+
+
 def value(client: TestClient, sample: str, **labels: str) -> float:
     for fam in text_string_to_metric_families(client.get("/metrics/").text):
         for s in fam.samples:
@@ -57,6 +70,8 @@ def test_every_metric_in_the_telemetry_contract_is_exposed_with_its_attributes(
         assert name in seen, f"{m['name']} missing as {name}"
         expected = {a.replace(".", "_") for a in m["attributes"]}
         assert expected <= seen[name], f"{name} lacks {expected - seen[name]}"
+        if "buckets" in m:
+            assert buckets(client, name) == [float(b) for b in m["buckets"]], f"{name} buckets"
 
 
 @pytest.mark.rule("OPS-R1")

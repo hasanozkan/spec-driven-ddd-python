@@ -16,6 +16,8 @@ from opentelemetry import metrics
 from library.contracts.events import LoanClosed, LoanOpened
 from library.shared.events import EventBus
 
+HTTP_DURATION_BUCKETS = [0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.25, 0.5, 0.75, 1, 2.5, 5, 7.5, 10]
+
 _configured = False
 
 
@@ -38,7 +40,11 @@ class Instruments:
     def __init__(self) -> None:
         m = metrics.get_meter("library")
         self.request_duration = m.create_histogram(
-            "http.server.request.duration", unit="s", description="Duration of HTTP server requests"
+            "http.server.request.duration",
+            unit="s",
+            description="Duration of HTTP server requests",
+            # semantic-conventions advice (specs/telemetry.yaml); SDK defaults are for milliseconds
+            explicit_bucket_boundaries_advisory=HTTP_DURATION_BUCKETS,
         )
         self.loans_opened = m.create_counter("library.loans.opened", description="Loans opened")
         self.loans_closed = m.create_counter(

@@ -11,6 +11,10 @@ metrics:
     type: histogram
     unit: s
     attributes: [http.request.method, http.route, http.response.status_code]
+    # The semantic conventions' advice for this metric. SDK defaults are sized
+    # for milliseconds; recording seconds into them puts every request in the
+    # first bucket and makes p95 read ~4.75 s (measured on k3d, 2026-09-24).
+    buckets: [0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.25, 0.5, 0.75, 1, 2.5, 5, 7.5, 10]
   - name: library.loans.opened
     type: counter
     attributes: []
