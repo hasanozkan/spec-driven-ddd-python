@@ -23,6 +23,12 @@ def create_app(clock: Callable[[], date] = date.today) -> FastAPI:
     bus = EventBus()
     catalog = CatalogService(InMemoryCatalogRepository(), bus)
     lending = LendingService(InMemoryLendingRepository(), load_policy(), bus, clock)
+
+    @app.get("/healthz", include_in_schema=False)
+    def healthz() -> dict[str, str]:
+        # Liveness/readiness for the platform; not part of the API contract.
+        return {"status": "ok"}
+
     app.include_router(catalog_router(catalog))
     app.include_router(lending_router(lending))
 

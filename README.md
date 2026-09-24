@@ -51,7 +51,11 @@ flowchart TB
 make install     # uv sync
 make check       # every gate CI runs
 make run         # http://127.0.0.1:8000/docs
+docker build -t library-sample . && docker run -p 8000:8000 library-sample
 ```
+
+Every merge to `main` publishes `ghcr.io/hasanozkan/library-sample:main-<unix-ts>-<sha>`,
+which [gitops-reference](https://github.com/hasanozkan/gitops-reference) deploys.
 
 ## The gates, and what each one proves
 
